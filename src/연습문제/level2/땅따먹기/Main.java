@@ -11,32 +11,13 @@ public class Main {
     }
 
     int solution(int[][] land) {
-        int[] ans = new int[land[0].length];
-
-        for (int i = 0; i < land[0].length; i++) {
-            boolean[] visited = new boolean[land[0].length];
-
-            int answer = land[0][i];
-            visited[i] = true;
-
-            for (int j = 1; j < land.length; j++) {
-                int big = 0;
-                int check = 0;
-                for (int k = 0; k < land[0].length; k++) {
-                    if (visited[k] == false) {
-                        if (big <= land[j][k]) {
-                            big = land[j][k];
-                            check = k;
-                            break;
-                        }
-                    }
-                }
-                answer += big;
-                visited[check] = true;
-            }
-            ans[i] = answer;
+        for (int i = 1; i < land.length; i++) {
+            land[i][0] += Math.max(land[i-1][1],Math.max(land[i-1][2],land[i-1][3]));
+            land[i][1] += Math.max(land[i-1][0],Math.max(land[i-1][2],land[i-1][3]));
+            land[i][2] += Math.max(land[i-1][0],Math.max(land[i-1][1],land[i-1][3]));
+            land[i][3] += Math.max(land[i-1][0],Math.max(land[i-1][1],land[i-1][2]));
         }
-        Arrays.sort(ans);
-        return ans[land[0].length - 1];
+
+        return Math.max(land[land.length-1][0],Math.max(land[land.length-1][1],Math.max(land[land.length-1][2],land[land.length-1][3])));
     }
 }
