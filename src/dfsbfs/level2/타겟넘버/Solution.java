@@ -1,29 +1,25 @@
 package dfsbfs.level2.타겟넘버;
 
-import java.util.ArrayList;
-import java.util.List;
-
 //3시 35분
 //fail
-//어떻게푸는지 방법을 모르겠음 dfsbfs 다시 보기
+
+//dfs
 public class Solution {
+	int answer = 0;
 	public int solution(int[] numbers, int target) {
-		int answer = 0;
-
-		List<String> list = new ArrayList<>();
-		for(int i = 1; i<numbers.length; i++){
-		}
-
+		dfs(numbers,0,target,0);
 		return answer;
 	}
-	public String calc(int minusCount,int numberLength, String tempCalc){
-		String answer = "";
 
-		minusCount--;
-		if(minusCount > 0){
-			calc(minusCount,numberLength,tempCalc);
+	public void dfs(int[] numbers, int index, int target, int sum){
+		if(index == numbers.length){
+			if(sum == target){
+				answer++;
+			}
+			return;
 		}
 
-		return answer;
+		dfs(numbers,index+1,target, sum + numbers[index]);
+		dfs(numbers,index+1,target,sum - numbers[index]);
 	}
 }
